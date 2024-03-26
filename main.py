@@ -1,5 +1,4 @@
-# main.py
-from game import generate_number, check_guess
+from game import generate_number, check_guess, welcome_message, prompt_message, error_message, success_message
 from colorama import init, Fore, Style
 
 def main():
@@ -7,23 +6,23 @@ def main():
     secret_number = generate_number()
     attempts = 0
 
-    print(Fore.CYAN + "Добро пожаловать в игру 'Угадай число'!" + Style.RESET_ALL)  # голубой цвет
+    print(welcome_message())
 
     print(Fore.YELLOW + "Я загадал число от 1 до 100. Попробуйте угадать." + Style.RESET_ALL)  # желтый цвет
 
     while True:
         try:
-            guess = int(input("Введите ваше предположение: "))
+            guess = int(input(prompt_message()))
             attempts += 1
             result = check_guess(secret_number, guess)
             print(result)
 
             if "Поздравляю" in result:
-                print(Fore.GREEN + f"Количество попыток: {attempts}" + Style.RESET_ALL)  # зеленый цвет
+                print(success_message(attempts))
                 break
 
         except ValueError:
-            print(Fore.RED + "Ошибка! Пожалуйста, введите целое число." + Style.RESET_ALL)  # красный цвет
+            print(error_message())
 
 if __name__ == "__main__":
     main()
