@@ -1,11 +1,15 @@
+# main.py
 from game import generate_number, check_guess
+from colorama import init, Fore, Style
 
 def main():
+    init(autoreset=True)  # автоматически сбрасывать цвет после каждого вывода
     secret_number = generate_number()
     attempts = 0
 
-    print("Добро пожаловать в игру 'Угадай число'!")
-    print("Я загадал число от 1 до 100. Попробуйте угадать.")
+    print(Fore.CYAN + "Добро пожаловать в игру 'Угадай число'!" + Style.RESET_ALL)  # голубой цвет
+
+    print(Fore.YELLOW + "Я загадал число от 1 до 100. Попробуйте угадать." + Style.RESET_ALL)  # желтый цвет
 
     while True:
         try:
@@ -14,12 +18,12 @@ def main():
             result = check_guess(secret_number, guess)
             print(result)
 
-            if result == "Поздравляю! Вы угадали число!":
-                print(f"Количество попыток: {attempts}")
+            if "Поздравляю" in result:
+                print(Fore.GREEN + f"Количество попыток: {attempts}" + Style.RESET_ALL)  # зеленый цвет
                 break
 
         except ValueError:
-            print("Ошибка! Пожалуйста, введите целое число.")
+            print(Fore.RED + "Ошибка! Пожалуйста, введите целое число." + Style.RESET_ALL)  # красный цвет
 
 if __name__ == "__main__":
     main()
